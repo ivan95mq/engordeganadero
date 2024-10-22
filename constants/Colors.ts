@@ -12,4 +12,5 @@ export const COLORS = {
   Black: '#000000', // Negro para el texto
   White: '#ffffff', // Blanco para el texto en botones
   borderGray: '#ccc', // Gris para los bordes
+  rojo: '#CA5A61', // Rojo para los botones
 };

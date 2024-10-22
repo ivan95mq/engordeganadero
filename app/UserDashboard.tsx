@@ -80,7 +80,7 @@ const UserDashboard = () => {
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.testButton} onPress={() => console.log('Iniciar Test de Sostenibilidad')}>
+            <TouchableOpacity style={styles.testButton} onPress={() => router.push('/encuesta/SelectForm')}>
                 <Text style={styles.testButtonText}>Iniciar Test de Sostenibilidad</Text>
             </TouchableOpacity>
         </View>
