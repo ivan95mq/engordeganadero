@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import Checkbox from 'expo-checkbox';
 import { useRouter } from 'expo-router';
 import { COLORS } from '../../constants/Colors';
 
 const EncuestaScreen = () => {
     const router = useRouter();
     const [responses, setResponses] = useState({
+        dopCertification: null,
+        carbonFootprintCertification: null,
+        slowGrowthBreeds: null,
         waterSavingPlan: null,
         waterConsumptionLog: null,
         waterPressureSystem: null,
-        externalSupply: null, // Changed from boolean to null for consistency
+        externalSupply: null,
         manureRemoval: null,
         agriculturalProgram: null,
         manureBuried24h: null,
         manureBuriedUnder24h: null,
-        dopCertification: null,
-        carbonFootprintCertification: null,
-        slowGrowthBreeds: null,
     });
-    const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
 
     const handleCheckboxChange = (key: string, value: boolean) => {
         setResponses(prev => ({
@@ -28,17 +27,12 @@ const EncuestaScreen = () => {
         }));
     };
 
-    useEffect(() => {
-        // Check if all responses are filled (true or false)
-        const allAnswered = Object.values(responses).every(response => response !== null);
-        setIsSubmitEnabled(allAnswered);
-    }, [responses]);
-
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.headerContainer}>
                 <Image source={require('../../assets/images/meatverde.png')} style={styles.headerImage} />
-                <TouchableOpacity onPress={() => router.push('/UserDashboard')}>
+                <TouchableOpacity onPress={() => router.push('/UserDashboard')
+                }>
                     <Image source={require('../../assets/images/user_icon.png')} style={styles.userIcon} />
                 </TouchableOpacity>
             </View>
@@ -47,30 +41,66 @@ const EncuestaScreen = () => {
             <View style={styles.questionContainer}>
                 <Text style={styles.questionText}>1. Denominación de origen protegida (DOP) o similar.</Text>
                 <View style={styles.checkboxContainer}>
-                    <Text>Si</Text>
-                    <CheckBox value={responses.dopCertification === true} onValueChange={(newValue) => handleCheckboxChange('dopCertification', newValue)} />
-                    <Text>No</Text>
-                    <CheckBox value={responses.dopCertification === false} onValueChange={(newValue) => handleCheckboxChange('dopCertification', !newValue)} />
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> Si </Text>
+                        <Checkbox
+                            value={responses.dopCertification === true}
+                            onValueChange={() => handleCheckboxChange('dopCertification', true)}
+                            color={responses.dopCertification === true ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> No </Text>
+                        <Checkbox
+                            value={responses.dopCertification === false}
+                            onValueChange={() => handleCheckboxChange('dopCertification', false)}
+                            color={responses.dopCertification === false ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
                 </View>
             </View>
 
             <View style={styles.questionContainer}>
                 <Text style={styles.questionText}>2. Certificación de la huella de carbono.</Text>
                 <View style={styles.checkboxContainer}>
-                    <Text>Si</Text>
-                    <CheckBox value={responses.carbonFootprintCertification === true} onValueChange={(newValue) => handleCheckboxChange('carbonFootprintCertification', newValue)} />
-                    <Text>No</Text>
-                    <CheckBox value={responses.carbonFootprintCertification === false} onValueChange={(newValue) => handleCheckboxChange('carbonFootprintCertification', !newValue)} />
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> Si </Text>
+                        <Checkbox
+                            value={responses.carbonFootprintCertification === true}
+                            onValueChange={() => handleCheckboxChange('carbonFootprintCertification', true)}
+                            color={responses.carbonFootprintCertification === true ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> No </Text>
+                        <Checkbox
+                            value={responses.carbonFootprintCertification === false}
+                            onValueChange={() => handleCheckboxChange('carbonFootprintCertification', false)}
+                            color={responses.carbonFootprintCertification === false ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
                 </View>
             </View>
 
             <View style={styles.questionContainer}>
                 <Text style={styles.questionText}>3. Razas de crecimiento lento.</Text>
                 <View style={styles.checkboxContainer}>
-                    <Text>Si</Text>
-                    <CheckBox value={responses.slowGrowthBreeds === true} onValueChange={(newValue) => handleCheckboxChange('slowGrowthBreeds', newValue)} />
-                    <Text>No</Text>
-                    <CheckBox value={responses.slowGrowthBreeds === false} onValueChange={(newValue) => handleCheckboxChange('slowGrowthBreeds', !newValue)} />
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> Si </Text>
+                        <Checkbox
+                            value={responses.slowGrowthBreeds === true}
+                            onValueChange={() => handleCheckboxChange('slowGrowthBreeds', true)}
+                            color={responses.slowGrowthBreeds === true ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> No </Text>
+                        <Checkbox
+                            value={responses.slowGrowthBreeds === false}
+                            onValueChange={() => handleCheckboxChange('slowGrowthBreeds', false)}
+                            color={responses.slowGrowthBreeds === false ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
                 </View>
             </View>
 
@@ -79,101 +109,189 @@ const EncuestaScreen = () => {
             <View style={styles.questionContainer}>
                 <Text style={styles.questionText}>1. Existe un plan de ahorro de agua (potable y de limpieza).</Text>
                 <View style={styles.checkboxContainer}>
-                    <Text>Si</Text>
-                    <CheckBox value={responses.waterSavingPlan === true} onValueChange={(newValue) => handleCheckboxChange('waterSavingPlan', newValue)} />
-                    <Text>No</Text>
-                    <CheckBox value={responses.waterSavingPlan === false} onValueChange={(newValue) => handleCheckboxChange('waterSavingPlan', !newValue)} />
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> Si </Text>
+                        <Checkbox
+                            value={responses.waterSavingPlan === true}
+                            onValueChange={() => handleCheckboxChange('waterSavingPlan', true)}
+                            color={responses.waterSavingPlan === true ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> No </Text>
+                        <Checkbox
+                            value={responses.waterSavingPlan === false}
+                            onValueChange={() => handleCheckboxChange('waterSavingPlan', false)}
+                            color={responses.waterSavingPlan === false ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
                 </View>
             </View>
 
             <View style={styles.questionContainer}>
                 <Text style={styles.questionText}>2. Existe un registro del consumo de agua.</Text>
                 <View style={styles.checkboxContainer}>
-                    <Text>Si</Text>
-                    <CheckBox value={responses.waterConsumptionLog === true} onValueChange={(newValue) => handleCheckboxChange('waterConsumptionLog', newValue)} />
-                    <Text>No</Text>
-                    <CheckBox value={responses.waterConsumptionLog === false} onValueChange={(newValue) => handleCheckboxChange('waterConsumptionLog', !newValue)} />
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> Si </Text>
+                        <Checkbox
+                            value={responses.waterConsumptionLog === true}
+                            onValueChange={() => handleCheckboxChange('waterConsumptionLog', true)}
+                            color={responses.waterConsumptionLog === true ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> No </Text>
+                        <Checkbox
+                            value={responses.waterConsumptionLog === false}
+                            onValueChange={() => handleCheckboxChange('waterConsumptionLog', false)}
+                            color={responses.waterConsumptionLog === false ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
                 </View>
             </View>
 
             <View style={styles.questionContainer}>
                 <Text style={styles.questionText}>3. Existe un sistema de agua a presión para la limpieza.</Text>
                 <View style={styles.checkboxContainer}>
-                    <Text>Si</Text>
-                    <CheckBox value={responses.waterPressureSystem === true} onValueChange={(newValue) => handleCheckboxChange('waterPressureSystem', newValue)} />
-                    <Text>No</Text>
-                    <CheckBox value={responses.waterPressureSystem === false} onValueChange={(newValue) => handleCheckboxChange('waterPressureSystem', !newValue)} />
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> Si </Text>
+                        <Checkbox
+                            value={responses.waterPressureSystem === true}
+                            onValueChange={() => handleCheckboxChange('waterPressureSystem', true)}
+                            color={responses.waterPressureSystem === true ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> No </Text>
+                        <Checkbox
+                            value={responses.waterPressureSystem === false}
+                            onValueChange={() => handleCheckboxChange('waterPressureSystem', false)}
+                            color={responses.waterPressureSystem === false ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
                 </View>
             </View>
 
             <View style={styles.questionContainer}>
                 <Text style={styles.questionText}>4. Necesidad de suministros externos en los últimos 10 años (rellene sólo 1 casilla)</Text>
                 <View style={styles.checkboxContainer}>
-                    <Text>1 verano</Text>
-                    <CheckBox
-                        value={responses.externalSupply === true}
-                        onValueChange={(newValue) => handleCheckboxChange('externalSupply', newValue)}
-                    />
-                    <Text>2 o más veranos</Text>
-                    <CheckBox
-                        value={responses.externalSupply === false}
-                        onValueChange={(newValue) => handleCheckboxChange('externalSupply', !newValue)}
-                    />
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> 1 verano </Text>
+                        <Checkbox
+                            value={responses.externalSupply === true}
+                            onValueChange={() => handleCheckboxChange('externalSupply', true)}
+                            color={responses.externalSupply === true ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> 2 o más veranos </Text>
+                        <Checkbox
+                            value={responses.externalSupply === false}
+                            onValueChange={() => handleCheckboxChange('externalSupply', false)}
+                            color={responses.externalSupply === false ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
                 </View>
             </View>
+
+            <Text style={styles.title}>Manejo del estiércol</Text>
 
             <View style={styles.questionContainer}>
                 <Text style={styles.questionText}>7. El estiércol se retira lo antes posible tras el acabado.</Text>
                 <View style={styles.checkboxContainer}>
-                    <Text>Si</Text>
-                    <CheckBox value={responses.manureRemoval === true} onValueChange={(newValue) => handleCheckboxChange('manureRemoval', newValue)} />
-                    <Text>No</Text>
-                    <CheckBox value={responses.manureRemoval === false} onValueChange={(newValue) => handleCheckboxChange('manureRemoval', !newValue)} />
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> Si </Text>
+                        <Checkbox
+                            value={responses.manureRemoval === true}
+                            onValueChange={() => handleCheckboxChange('manureRemoval', true)}
+                            color={responses.manureRemoval === true ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> No </Text>
+                        <Checkbox
+                            value={responses.manureRemoval === false}
+                            onValueChange={() => handleCheckboxChange('manureRemoval', false)}
+                            color={responses.manureRemoval === false ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
                 </View>
             </View>
 
             <View style={styles.questionContainer}>
                 <Text style={styles.questionText}>8. Existe un programa agrícola para esparcir el estiércol (lugar, dosis, hora, fecha...)</Text>
                 <View style={styles.checkboxContainer}>
-                    <Text>Si</Text>
-                    <CheckBox value={responses.agriculturalProgram === true} onValueChange={(newValue) => handleCheckboxChange('agriculturalProgram', newValue)} />
-                    <Text>No</Text>
-                    <CheckBox value={responses.agriculturalProgram === false} onValueChange={(newValue) => handleCheckboxChange('agriculturalProgram', !newValue)} />
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> Si </Text>
+                        <Checkbox
+                            value={responses.agriculturalProgram === true}
+                            onValueChange={() => handleCheckboxChange('agriculturalProgram', true)}
+                            color={responses.agriculturalProgram === true ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> No </Text>
+                        <Checkbox
+                            value={responses.agriculturalProgram === false}
+                            onValueChange={() => handleCheckboxChange('agriculturalProgram', false)}
+                            color={responses.agriculturalProgram === false ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
                 </View>
             </View>
 
             <View style={styles.questionContainer}>
                 <Text style={styles.questionText}>9. El estiércol se entierra lo antes posible &lt;24h.</Text>
                 <View style={styles.checkboxContainer}>
-                    <Text>Si</Text>
-                    <CheckBox value={responses.manureBuried24h === true} onValueChange={(newValue) => handleCheckboxChange('manureBuried24h', newValue)} />
-                    <Text>No</Text>
-                    <CheckBox value={responses.manureBuried24h === false} onValueChange={(newValue) => handleCheckboxChange('manureBuried24h', !newValue)} />
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> Si </Text>
+                        <Checkbox
+                            value={responses.manureBuried24h === true}
+                            onValueChange={() => handleCheckboxChange('manureBuried24h', true)}
+                            color={responses.manureBuried24h === true ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> No </Text>
+                        <Checkbox
+                            value={responses.manureBuried24h === false}
+                            onValueChange={() => handleCheckboxChange('manureBuried24h', false)}
+                            color={responses.manureBuried24h === false ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
                 </View>
             </View>
 
             <View style={styles.questionContainer}>
                 <Text style={styles.questionText}>10. El estiércol se entierra lo antes posible &lt;24h.</Text>
                 <View style={styles.checkboxContainer}>
-                    <Text>Si</Text>
-                    <CheckBox value={responses.manureBuriedUnder24h === true} onValueChange={(newValue) => handleCheckboxChange('manureBuriedUnder24h', newValue)} />
-                    <Text>No</Text>
-                    <CheckBox value={responses.manureBuriedUnder24h === false} onValueChange={(newValue) => handleCheckboxChange('manureBuriedUnder24h', !newValue)} />
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> Si </Text>
+                        <Checkbox
+                            value={responses.manureBuriedUnder24h === true}
+                            onValueChange={() => handleCheckboxChange('manureBuriedUnder24h', true)}
+                            color={responses.manureBuriedUnder24h === true ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
+                    <View style={styles.checkboxItem}>
+                        <Text style={styles.checkboxText}> No </Text>
+                        <Checkbox
+                            value={responses.manureBuriedUnder24h === false}
+                            onValueChange={() => handleCheckboxChange('manureBuriedUnder24h', false)}
+                            color={responses.manureBuriedUnder24h === false ? COLORS.verdeoscuro : undefined}
+                        />
+                    </View>
                 </View>
             </View>
 
             <TouchableOpacity
-                style={[styles.submitButton, { backgroundColor: isSubmitEnabled ? COLORS.verdeoscuro : COLORS.borderGray }]}
-                onPress={() => {
-                    if (isSubmitEnabled) {
-                        console.log('Enviar Respuestas');
-                    }
-                }}
-                disabled={!isSubmitEnabled}
+                style={[styles.submitButton, { backgroundColor: Object.values(responses).every(value => value !== null) ? COLORS.verdeoscuro : COLORS.borderGray }]}
+                onPress={() => console.log('Enviar Respuestas')}
+                disabled={Object.values(responses).some(value => value === null)}
             >
                 <Text style={styles.submitButtonText}>Enviar Respuestas</Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 };
 
@@ -214,11 +332,22 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#000',
         marginBottom: 10,
+        textAlign: 'center',
     },
     checkboxContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
+        justifyContent: 'center',
+    },
+    checkboxItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginHorizontal: 20,
+    },
+    checkboxText: {
+        marginRight: 10,
+        textAlign: 'center',
     },
     submitButton: {
         paddingVertical: 15,
