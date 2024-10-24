@@ -9,24 +9,14 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { COLORS } from "../../constants/Colors";
+import TopBar from "@/components/TopBar";
 
 const ConsejosScreen = () => {
   const router = useRouter();
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Image
-          source={require("../../assets/images/meatverde.png")}
-          style={styles.headerImage}
-        />
-        <TouchableOpacity onPress={() => console.log("Abrir menú usuario")}>
-          <Image
-            source={require("../../assets/images/user_icon.png")}
-            style={styles.userIcon}
-          />
-        </TouchableOpacity>
-      </View>
+      <TopBar />
       <Text style={styles.title}>Consejos para mejorar</Text>
 
       <View style={styles.adviceContainer}>

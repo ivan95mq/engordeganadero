@@ -25,7 +25,7 @@ const HomeScreen = () => {
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push("/ConsejosScreen")}
+          onPress={() => router.push("/LoginScreen")}
         >
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
