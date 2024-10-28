@@ -1,47 +1,72 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { COLORS } from "../../constants/Colors";
 import TopBar from "@/components/TopBar";
+import * as Progress from "react-native-progress";
 
 const ResultsScreen = () => {
   const router = useRouter();
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <TopBar />
       <Text style={styles.title}>Resultado del test</Text>
 
       <View style={styles.resultContainer}>
         <Text style={styles.resultLabel}>Impacto medioambiental</Text>
         <View style={styles.chartContainer}>
-          <Image
-            source={require("../../assets/images/check.png")}
-            style={styles.chartImage}
+          <Progress.Circle
+            size={100}
+            progress={0.81} // Representa el 81%
+            showsText={true}
+            color={COLORS.verdeoscuro}
+            unfilledColor={"#ECECEC"}
+            borderWidth={0}
+            thickness={8}
+            formatText={() => `81%`}
+            textStyle={styles.percentageText}
           />
-          <Text style={styles.percentageText}>81%</Text>
         </View>
       </View>
 
       <View style={styles.resultContainer}>
         <Text style={styles.resultLabel}>Impacto social</Text>
         <View style={styles.chartContainer}>
-          <Image
-            source={require("../../assets/images/check.png")}
-            style={styles.chartImage}
+          <Progress.Circle
+            size={100}
+            progress={0.65} // Representa el 65%
+            showsText={true}
+            color={"#CA5A61"}
+            unfilledColor={"#ECECEC"}
+            borderWidth={0}
+            thickness={8}
+            formatText={() => `65%`}
+            textStyle={styles.percentageText}
           />
-          <Text style={styles.percentageText}>81%</Text>
         </View>
       </View>
 
       <View style={styles.resultContainer}>
         <Text style={styles.resultLabel}>Impacto económico</Text>
         <View style={styles.chartContainer}>
-          <Image
-            source={require("../../assets/images/check.png")}
-            style={styles.chartImage}
+          <Progress.Circle
+            size={100}
+            progress={0.92} // Representa el 92%
+            showsText={true}
+            color={COLORS.verdeclaro}
+            unfilledColor={"#ECECEC"}
+            borderWidth={0}
+            thickness={8}
+            formatText={() => `92%`}
+            textStyle={styles.percentageText}
           />
-          <Text style={styles.percentageText}>81%</Text>
         </View>
       </View>
 
@@ -54,7 +79,7 @@ const ResultsScreen = () => {
       >
         <Text style={styles.modifyButtonText}>Modificar Respuestas</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -63,22 +88,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.bgBeige,
     padding: 20,
-  },
-  headerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  headerImage: {
-    width: 150,
-    height: 50,
-    resizeMode: "contain",
-  },
-  userIcon: {
-    width: 40,
-    height: 40,
-    resizeMode: "contain",
   },
   title: {
     fontSize: 24,
@@ -100,16 +109,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
   },
-  chartImage: {
-    width: 100,
-    height: 100,
-    resizeMode: "contain",
-  },
   percentageText: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#000",
-    marginTop: 10,
   },
   totalScoreTitle: {
     fontSize: 20,
@@ -135,12 +138,6 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 18,
     fontWeight: "bold",
-  },
-  adviceLink: {
-    fontSize: 16,
-    color: COLORS.verdeoscuro,
-    textAlign: "center",
-    textDecorationLine: "underline",
   },
 });
 

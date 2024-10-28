@@ -7,7 +7,7 @@ export const API = "";
 
 export const COLORS = {
   verdeoscuro: "#204929", // Verde oscuro
-  verdeclaro: "#6ABf4B", // Verde más claro
+  verdeclaro: "#7AAA94", // Verde más claro
   bgBeige: "#F5EDE0", // Color beige de fondo
   Black: "#000000", // Negro para el texto
   White: "#ffffff", // Blanco para el texto en botones
