@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import axios from "axios";
-import { COLORS } from "../constants/Colors";
+import { COLORS, URL, API } from "../constants/Constant";
 import { User } from "../constants/Interfaces";
 import { useUserStore } from "../store/userStore";
 
@@ -32,9 +32,11 @@ const UserDashboard = () => {
     if (userIdNumber) {
       const fetchUser = async () => {
         try {
-          const response = await axios.get(
-            `https://jsonplaceholder.typicode.com/users/${userIdNumber}`
-          );
+          const response = await axios.get(`${URL}api/users/${userIdNumber}`, {
+            headers: {
+              Authorization: `Bearer ${API}`,
+            },
+          });
           setUser(response.data);
         } catch (error) {
           console.error("Error fetching user:", error);

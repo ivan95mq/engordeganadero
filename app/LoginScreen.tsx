@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import axios from "axios";
-import { COLORS } from "@/constants/Colors";
+import { COLORS, URL, API } from "@/constants/Constant";
 import { User } from "@/constants/Interfaces";
 import { useUserStore } from "../store/userStore";
 
@@ -27,9 +27,14 @@ const LoginScreen = () => {
     }
 
     try {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/users"
-      );
+      // Verifica que la URL y el token se impriman correctamente
+      console.log("API URL:", URL);
+      console.log("API Token:", API);
+      const response = await axios.get(`${URL}api/users/`, {
+        headers: {
+          Authorization: `Bearer ${API}`,
+        },
+      });
       const user = response.data.find((u: User) => u.email === email);
 
       if (user) {
@@ -42,8 +47,33 @@ const LoginScreen = () => {
         setError("Usuario no encontrado");
       }
     } catch (error) {
-      setError("Error al intentar iniciar sesión");
-      console.error("Login error:", error);
+      if (axios.isAxiosError(error)) {
+        // Verifica si el error proviene de Axios
+        if (error.response) {
+          // Respuesta recibida del servidor con un error (código 4xx o 5xx)
+          console.error("Error en la respuesta del servidor:", error.response);
+          setError(
+            `Error en el servidor: ${
+              error.response.data.message || "No se pudo iniciar sesión"
+            }`
+          );
+        } else if (error.request) {
+          // No se recibió respuesta, pero la solicitud fue enviada
+          console.error("No se recibió respuesta del servidor:", error.request);
+          setError("No se pudo conectar con el servidor");
+        } else {
+          // Error en la configuración de la solicitud
+          console.error(
+            "Error en la configuración de la solicitud:",
+            error.message
+          );
+          setError("Error al configurar la solicitud");
+        }
+      } else {
+        // Un error inesperado que no proviene de Axios
+        console.error("Error desconocido:", error);
+        setError("Ocurrió un error desconocido");
+      }
     }
   };
 

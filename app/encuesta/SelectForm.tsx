@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useRouter } from "expo-router";
-import { COLORS } from "../../constants/Colors";
+import { COLORS } from "../../constants/Constant";
 import TopBar from "@/components/TopBar";
 
 const SelectForm = () => {

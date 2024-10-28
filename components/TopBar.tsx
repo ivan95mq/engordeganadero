@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
-import { COLORS } from "@/constants/Colors";
+import { COLORS } from "@/constants/Constant";
 import { router } from "expo-router";
 
 export default function TopBar() {

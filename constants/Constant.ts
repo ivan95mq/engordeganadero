@@ -3,8 +3,8 @@
  * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
  */
 
-export const API = "";
-
+export const API = process.env.REACT_APP_API;
+export const URL = process.env.REACT_APP_API_URL;
 export const COLORS = {
   verdeoscuro: "#204929", // Verde oscuro
   verdeclaro: "#7AAA94", // Verde más claro

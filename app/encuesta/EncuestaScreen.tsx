@@ -4,12 +4,11 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Image,
   ScrollView,
 } from "react-native";
 import Checkbox from "expo-checkbox";
 import { useRouter } from "expo-router";
-import { COLORS } from "../../constants/Colors";
+import { COLORS } from "../../constants/Constant";
 import TopBar from "@/components/TopBar";
 
 const EncuestaScreen = () => {

@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { COLORS } from "../../constants/Colors";
+import { COLORS } from "../../constants/Constant";
 import TopBar from "@/components/TopBar";
 import * as Progress from "react-native-progress";
 

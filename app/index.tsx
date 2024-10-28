@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { COLORS } from "@/constants/Colors";
+import { COLORS } from "@/constants/Constant";
 
 const HomeScreen = () => {
   const router = useRouter();
@@ -25,7 +25,7 @@ const HomeScreen = () => {
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push("/resultados/AdviceScreen")}
+          onPress={() => router.push("/LoginScreen")}
         >
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
