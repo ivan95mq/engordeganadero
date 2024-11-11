@@ -10,8 +10,8 @@ import { useRouter } from "expo-router";
 import { COLORS } from "../../constants/Constant";
 import TopBar from "@/components/TopBar";
 import * as Progress from "react-native-progress";
-
-const ResultsScreen = () => {
+import { styles } from "@/constants/styles";
+const Results = () => {
   const router = useRouter();
 
   return (
@@ -83,62 +83,4 @@ const ResultsScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.bgBeige,
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    color: COLORS.verdeoscuro,
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  resultContainer: {
-    alignItems: "center",
-    marginBottom: 30,
-  },
-  resultLabel: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#000",
-    marginBottom: 10,
-  },
-  chartContainer: {
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  percentageText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#000",
-  },
-  totalScoreTitle: {
-    fontSize: 20,
-    color: COLORS.verdeoscuro,
-    textAlign: "center",
-    marginTop: 20,
-  },
-  totalScore: {
-    fontSize: 36,
-    fontWeight: "bold",
-    color: "#000",
-    textAlign: "center",
-    marginBottom: 40,
-  },
-  modifyButton: {
-    backgroundColor: COLORS.verdeoscuro,
-    paddingVertical: 15,
-    borderRadius: 8,
-    alignItems: "center",
-    marginVertical: 20,
-  },
-  modifyButtonText: {
-    color: "#ffffff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-});
-
-export default ResultsScreen;
+export default Results;

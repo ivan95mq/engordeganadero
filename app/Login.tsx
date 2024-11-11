@@ -1,20 +1,16 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Image,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { useTranslation } from "react-i18next";
 import { useRouter } from "expo-router";
 import axios from "axios";
-import { COLORS, URL, API } from "@/constants/Constant";
+import { styles } from "@/constants/styles";
+import { URL, API } from "@/constants/Constant";
 import { User } from "@/constants/Interfaces";
 import { useUserStore } from "../store/userStore";
 
-const LoginScreen = () => {
+const Login = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -22,7 +18,7 @@ const LoginScreen = () => {
   const setUserId = useUserStore((state) => state.setUserId);
   const handleLogin = async () => {
     if (!email || !password) {
-      setError("Por favor, rellene todos los campos");
+      setError(t("Por favor, rellene todos los campos"));
       return;
     }
 
@@ -44,7 +40,7 @@ const LoginScreen = () => {
         // Navegar a la página de usuario
         router.push("/UserDashboard");
       } else {
-        setError("Usuario no encontrado");
+        setError(t("Usuario no encontrado"));
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -54,25 +50,25 @@ const LoginScreen = () => {
           console.error("Error en la respuesta del servidor:", error.response);
           setError(
             `Error en el servidor: ${
-              error.response.data.message || "No se pudo iniciar sesión"
+              error.response.data.message || t("No se pudo iniciar sesión")
             }`
           );
         } else if (error.request) {
           // No se recibió respuesta, pero la solicitud fue enviada
           console.error("No se recibió respuesta del servidor:", error.request);
-          setError("No se pudo conectar con el servidor");
+          setError(t("No se pudo conectar con el servidor"));
         } else {
           // Error en la configuración de la solicitud
           console.error(
             "Error en la configuración de la solicitud:",
             error.message
           );
-          setError("Error al configurar la solicitud");
+          setError(t("Error al configurar la solicitud"));
         }
       } else {
         // Un error inesperado que no proviene de Axios
         console.error("Error desconocido:", error);
-        setError("Ocurrió un error desconocido");
+        setError(t("Ocurrió un error desconocido"));
       }
     }
   };
@@ -80,23 +76,24 @@ const LoginScreen = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../assets/images/meat.png")}
-        style={styles.headerImage}
+        source={require("../assets/images/meatverde.png")}
+        style={styles.title}
       />
+
       <View style={styles.formContainer}>
-        <Text style={styles.label}>Email</Text>
+        <Text style={styles.label}>{t("Email")}</Text>
         <TextInput
           style={styles.input}
-          placeholder="Introduce tu email"
+          placeholder={t("Introduce tu email")}
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
         />
 
-        <Text style={styles.label}>Contraseña</Text>
+        <Text style={styles.label}>{t("Contraseña")}</Text>
         <TextInput
           style={styles.input}
-          placeholder="Introduce tu contraseña"
+          placeholder={t("Introduce tu contraseña")}
           secureTextEntry
           value={password}
           onChangeText={setPassword}
@@ -104,14 +101,19 @@ const LoginScreen = () => {
 
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Entrar</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push("/UserDashboard")}
+        >
+          <Text style={styles.buttonText}>{t("Entrar")}</Text>
         </TouchableOpacity>
 
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>¿Has olvidado la contraseña?</Text>
-          <TouchableOpacity onPress={() => router.push("/RegistrationScreen")}>
-            <Text style={styles.registerText}>Registrarse</Text>
+        <View style={styles.footerContainer}>
+          <Text style={styles.footerText}>
+            {t("¿Has olvidado la contraseña?")}
+          </Text>
+          <TouchableOpacity onPress={() => router.push("/Registration")}>
+            <Text style={styles.registerText}>{t("Registrarse")}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -119,66 +121,4 @@ const LoginScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.bgBeige, // Color beige claro para el fondo
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  headerImage: {
-    width: "70%",
-    resizeMode: "contain",
-    marginTop: 60,
-  },
-  formContainer: {
-    width: "80%",
-    marginTop: 20,
-  },
-  label: {
-    fontSize: 16,
-    color: "#000",
-    marginBottom: 5,
-  },
-  input: {
-    height: 50,
-    backgroundColor: "#FFF",
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    marginBottom: 20,
-    borderColor: COLORS.borderGray,
-    borderWidth: 1,
-  },
-  button: {
-    backgroundColor: COLORS.verdeoscuro, // Verde oscuro
-    paddingVertical: 15,
-    borderRadius: 8,
-    alignItems: "center",
-    marginVertical: 20,
-  },
-  buttonText: {
-    color: "#ffffff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  footerText: {
-    fontSize: 14,
-    color: "#000",
-  },
-  registerText: {
-    fontSize: 14,
-    color: COLORS.verdeoscuro,
-    fontWeight: "bold",
-  },
-  errorText: {
-    color: "red",
-    marginBottom: 15,
-  },
-});
-
-export default LoginScreen;
+export default Login;

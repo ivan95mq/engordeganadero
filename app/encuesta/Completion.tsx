@@ -11,7 +11,7 @@ import { useRouter } from "expo-router";
 import { COLORS } from "../../constants/Constant";
 import TopBar from "@/components/TopBar";
 
-const CompletionScreen = () => {
+const Completion = () => {
   const router = useRouter();
 
   return (
@@ -94,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CompletionScreen;
+export default Completion;

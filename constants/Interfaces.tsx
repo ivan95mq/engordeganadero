@@ -3,4 +3,5 @@ export interface User {
   name?: string;
   email?: string;
   phone?: string;
+  finca?: [id: number, name: string];
 }

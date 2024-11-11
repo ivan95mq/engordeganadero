@@ -22,10 +22,13 @@ export default function TopBar() {
 
 const styles = StyleSheet.create({
   headerContainer: {
+    display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    justifyContent: "space-around",
+    alignItems: "stretch",
     marginBottom: 20,
+    marginEnd: 80,
+    gap: 100,
   },
   headerImage: {
     width: 150,

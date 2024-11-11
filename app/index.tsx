@@ -2,101 +2,44 @@ import React from "react";
 import {
   ImageBackground,
   Image,
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
 } from "react-native";
+import { useTranslation } from "react-i18next";
 import { useRouter } from "expo-router";
-import { COLORS } from "@/constants/Constant";
+import { styles } from "@/constants/styles";
 
-const HomeScreen = () => {
+const Home: React.FC = () => {
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <ImageBackground
       source={require("../assets/images/gallina.jpg")}
-      style={styles.backgroundImage}
+      style={styles.containerimg}
     >
-      <View style={styles.container}>
+      <View style={styles.containerimg}>
         <Image
           source={require("../assets/images/meatverde.png")}
           style={styles.title}
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push("/LoginScreen")}
+          onPress={() => router.push("/Login")}
         >
-          <Text style={styles.buttonText}>Entrar</Text>
+          <Text style={styles.buttonText}>{t("Entrar")}</Text>
         </TouchableOpacity>
         <View style={styles.footerContainer}>
           <Text style={styles.footerText}>¿No tienes cuenta?</Text>
-          <TouchableOpacity onPress={() => router.push("/RegistrationScreen")}>
-            <Text style={styles.registerText}>Registrarse</Text>
+          <TouchableOpacity onPress={() => router.push("/Registration")}>
+            <Text style={styles.registerText}>{t("Registrarse")}</Text>
           </TouchableOpacity>
         </View>
-        <Image
-          source={require("../assets/images/european.png")}
-          style={styles.euImage}
-        />
+        <Image source={require("../assets/images/european.png")} />
       </View>
     </ImageBackground>
   );
 };
 
-const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    resizeMode: "cover", // Esto hace que la imagen se ajuste al tamaño del contenedor
-    justifyContent: "center", // Centra verticalmente
-    alignItems: "center", // Centra horizontalmente
-  },
-  container: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingBottom: 50,
-  },
-  title: {
-    width: "70%",
-    resizeMode: "contain",
-    marginBottom: 30,
-  },
-  button: {
-    backgroundColor: COLORS.verdeoscuro,
-    borderRadius: 8,
-    paddingVertical: 15,
-    paddingHorizontal: 60,
-    marginVertical: 20,
-  },
-  buttonText: {
-    color: COLORS.White,
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  footerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  footerText: {
-    fontSize: 16,
-    color: COLORS.Black,
-  },
-  registerText: {
-    fontSize: 16,
-    color: COLORS.Black,
-    fontWeight: "bold",
-    textDecorationLine: "underline",
-    marginLeft: 5,
-  },
-  euImage: {
-    width: 150,
-    height: 50,
-    resizeMode: "contain",
-    marginTop: 20,
-  },
-});
-
-export default HomeScreen;
+export default Home;

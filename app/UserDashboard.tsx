@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  FlatList,
-} from "react-native";
-import { useRouter, useLocalSearchParams } from "expo-router";
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
 import axios from "axios";
-import { COLORS, URL, API } from "../constants/Constant";
-import { User } from "../constants/Interfaces";
+import { useTranslation } from "react-i18next";
+import { COLORS, URL, API } from "@/constants/Constant";
+import { User } from "@/constants/Interfaces";
 import { useUserStore } from "../store/userStore";
+import TopBar from "@/components/TopBar";
 
 const UserDashboard = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   // Obtener userId de los parámetros
   const userId = useUserStore((state) => state.userId);
   const clearUserId = useUserStore((state) => state.clearUserId);
@@ -54,36 +50,27 @@ const UserDashboard = () => {
 
   if (loading) {
     return (
-      <View style={styles.loadingContainer}>
-        <Text>Loading...</Text>
+      <View style={styles.container}>
+        <Text style={styles.profileName}>{t("Loading...")}</Text>
       </View>
     );
   }
+
   const handleLogout = () => {
     clearUserId(); // Limpiar el userId del store
-    router.push("/LoginScreen"); // Navegar a la pantalla de login
+    router.push("/Login"); // Navegar a la pantalla de login
   };
+
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Image
-          source={require("../assets/images/meatverde.png")}
-          style={styles.headerImage}
-        />
-        <TouchableOpacity onPress={() => console.log("Abrir menú usuario")}>
-          <Image
-            source={require("../assets/images/user_icon.png")}
-            style={styles.userIcon}
-          />
-        </TouchableOpacity>
-      </View>
+      <TopBar />
       <View style={styles.profileContainer}>
         <Image
           source={require("../assets/images/user_profile.png")}
           style={styles.profileImage}
         />
         <Text style={styles.profileName}>
-          {user?.name || "Nombre no disponible"}
+          {user?.name || t("Nombre no disponible")}
         </Text>
       </View>
       <View style={styles.menuContainer}>
@@ -91,31 +78,31 @@ const UserDashboard = () => {
           style={styles.menuItem}
           onPress={() => console.log("Información Personal")}
         >
-          <Text style={styles.menuText}>Información Personal</Text>
+          <Text style={styles.menuText}>{t("Información Personal")}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuItem}
           onPress={() => console.log("Resultado del test")}
         >
-          <Text style={styles.menuText}>Resultado del test</Text>
+          <Text style={styles.menuText}>{t("Resultado del test")}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => console.log("Idiomas")}
+          onPress={() => router.push("/LanguageSelection")}
         >
-          <Text style={styles.menuText}>Idiomas</Text>
+          <Text style={styles.menuText}>{t("Idiomas")}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
-          <Text style={styles.menuText}>Salir</Text>
+          <Text style={styles.menuText}>{t("Salir")}</Text>
         </TouchableOpacity>
       </View>
 
       <TouchableOpacity
-        style={styles.testButton}
-        onPress={() => router.push("/encuesta/EncuestaScreen")}
+        style={styles.button}
+        onPress={() => router.push("/encuesta/Encuesta")}
       >
-        <Text style={styles.testButtonText}>
-          Iniciar Test de Sostenibilidad
+        <Text style={styles.buttonText}>
+          {t("Iniciar Test de Sostenibilidad")}
         </Text>
       </TouchableOpacity>
     </View>
@@ -125,14 +112,19 @@ const UserDashboard = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.bgBeige, // Color de fondo beige
+    backgroundColor: COLORS.bgBeige,
     padding: 20,
+    paddingBottom: 50,
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
   headerContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    width: "100%",
     alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: 20,
+    paddingHorizontal: 10,
   },
   headerImage: {
     width: 150,
@@ -146,47 +138,48 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 20,
   },
   profileImage: {
     width: 100,
     height: 100,
     borderRadius: 50,
+    backgroundColor: COLORS.bgBeige,
     marginBottom: 10,
   },
   profileName: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#000",
+    color: COLORS.black,
   },
   menuContainer: {
-    marginBottom: 30,
+    width: "100%",
+    alignItems: "center",
+    marginBottom: 20,
   },
   menuItem: {
+    width: "100%",
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    borderBottomColor: COLORS.borderGray,
+    alignItems: "center",
   },
   menuText: {
-    textAlign: "center",
-    alignContent: "center",
     fontSize: 18,
-    color: "#000",
+    color: COLORS.black,
   },
-  loadingContainer: {
-    flex: 1,
+  button: {
+    backgroundColor: COLORS.verdeoscuro,
+    paddingVertical: 15,
+    paddingHorizontal: 60,
+    borderRadius: 8,
+    marginTop: 30,
     justifyContent: "center",
     alignItems: "center",
   },
-  testButton: {
-    backgroundColor: COLORS.verdeoscuro,
-    paddingVertical: 15,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  testButtonText: {
-    color: "#ffffff",
-    fontSize: 18,
+  buttonText: {
+    color: COLORS.white,
+    fontSize: 16,
     fontWeight: "bold",
   },
 });

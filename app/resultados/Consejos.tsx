@@ -8,10 +8,10 @@ import {
   ScrollView,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { COLORS } from "../../constants/Constant";
 import TopBar from "@/components/TopBar";
+import { styles } from "@/constants/styles";
 
-const ConsejosScreen = () => {
+const Consejos = () => {
   const router = useRouter();
 
   return (
@@ -36,44 +36,4 @@ const ConsejosScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.bgBeige,
-    padding: 20,
-  },
-  headerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  headerImage: {
-    width: 150,
-    height: 50,
-    resizeMode: "contain",
-  },
-  userIcon: {
-    width: 40,
-    height: 40,
-    resizeMode: "contain",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: COLORS.verdeoscuro,
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  adviceContainer: {
-    paddingHorizontal: 10,
-  },
-  adviceText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#000",
-    marginBottom: 15,
-  },
-});
-
-export default ConsejosScreen;
+export default Consejos;
