@@ -40,7 +40,7 @@ const Login = () => {
         // Navegar a la página de usuario
         router.push("/UserDashboard");
       } else {
-        setError(t("Usuario no encontrado"));
+        setError(t("no_data"));
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -68,7 +68,7 @@ const Login = () => {
       } else {
         // Un error inesperado que no proviene de Axios
         console.error("Error desconocido:", error);
-        setError(t("Ocurrió un error desconocido"));
+        setError(t("error"));
       }
     }
   };
@@ -81,19 +81,19 @@ const Login = () => {
       />
 
       <View style={styles.formContainer}>
-        <Text style={styles.label}>{t("Email")}</Text>
+        <Text style={styles.label}>{t("email")}</Text>
         <TextInput
           style={styles.input}
-          placeholder={t("Introduce tu email")}
+          placeholder={t("email")}
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
         />
 
-        <Text style={styles.label}>{t("Contraseña")}</Text>
+        <Text style={styles.label}>{t("password")}</Text>
         <TextInput
           style={styles.input}
-          placeholder={t("Introduce tu contraseña")}
+          placeholder={t("password")}
           secureTextEntry
           value={password}
           onChangeText={setPassword}
@@ -105,13 +105,11 @@ const Login = () => {
           style={styles.button}
           onPress={() => router.push("/UserDashboard")}
         >
-          <Text style={styles.buttonText}>{t("Entrar")}</Text>
+          <Text style={styles.buttonText}>{t("login")}</Text>
         </TouchableOpacity>
 
         <View style={styles.footerContainer}>
-          <Text style={styles.footerText}>
-            {t("¿Has olvidado la contraseña?")}
-          </Text>
+          <Text style={styles.footerText}>{t("forgot_password")}</Text>
           <TouchableOpacity onPress={() => router.push("/Registration")}>
             <Text style={styles.registerText}>{t("Registrarse")}</Text>
           </TouchableOpacity>

@@ -28,12 +28,12 @@ const Home: React.FC = () => {
           style={styles.button}
           onPress={() => router.push("/Login")}
         >
-          <Text style={styles.buttonText}>{t("Entrar")}</Text>
+          <Text style={styles.buttonText}>{t("login")}</Text>
         </TouchableOpacity>
         <View style={styles.footerContainer}>
           <Text style={styles.footerText}>¿No tienes cuenta?</Text>
           <TouchableOpacity onPress={() => router.push("/Registration")}>
-            <Text style={styles.registerText}>{t("Registrarse")}</Text>
+            <Text style={styles.registerText}>{t("signup")}</Text>
           </TouchableOpacity>
         </View>
         <Image source={require("../assets/images/european.png")} />

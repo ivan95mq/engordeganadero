@@ -69,31 +69,29 @@ const UserDashboard = () => {
           source={require("../assets/images/user_profile.png")}
           style={styles.profileImage}
         />
-        <Text style={styles.profileName}>
-          {user?.name || t("Nombre no disponible")}
-        </Text>
+        <Text style={styles.profileName}>{user?.name || t("no_data")}</Text>
       </View>
       <View style={styles.menuContainer}>
         <TouchableOpacity
           style={styles.menuItem}
           onPress={() => console.log("Información Personal")}
         >
-          <Text style={styles.menuText}>{t("Información Personal")}</Text>
+          <Text style={styles.menuText}>{t("personal_information")}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => console.log("Resultado del test")}
+          onPress={() => router.push("/resultados/Results")}
         >
-          <Text style={styles.menuText}>{t("Resultado del test")}</Text>
+          <Text style={styles.menuText}>{t("test_result")}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuItem}
           onPress={() => router.push("/LanguageSelection")}
         >
-          <Text style={styles.menuText}>{t("Idiomas")}</Text>
+          <Text style={styles.menuText}>{t("languages")}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
-          <Text style={styles.menuText}>{t("Salir")}</Text>
+          <Text style={styles.menuText}>{t("exit")}</Text>
         </TouchableOpacity>
       </View>
 
@@ -101,9 +99,7 @@ const UserDashboard = () => {
         style={styles.button}
         onPress={() => router.push("/encuesta/Encuesta")}
       >
-        <Text style={styles.buttonText}>
-          {t("Iniciar Test de Sostenibilidad")}
-        </Text>
+        <Text style={styles.buttonText}>{t("start_sustainability_test")}</Text>
       </TouchableOpacity>
     </View>
   );
